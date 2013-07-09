@@ -5,6 +5,7 @@
 //  Created by Michael Enriquez on 1/23/12.
 //  Copyright (c) 2012 EdgeCase. All rights reserved.
 //
+//  Edited by wkberg on 6/8/12
 
 #import <UIKit/UIKit.h>
 #import "UIImage+ImageWithUIView.h"
@@ -215,6 +216,14 @@ typedef enum {
 
 /** Returns true if the top view is completely off the screen */
 - (BOOL)topViewIsOffScreen;
+
+
+///// ADDED THIS
+/** Returns if the viewController already exists in the array and therefore should not be instantiated again */
++ (UIViewController *) queryViewController:(NSString *)viewControllerIdentifier;
+
+/** Adds the viewController to the list of existing viewControllers when creating it */
++ (void) addViewController:(NSString *)viewControllerIdentifier viewController:(UIViewController *)avc;
 
 @end
 
