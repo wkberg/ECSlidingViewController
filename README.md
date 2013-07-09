@@ -62,7 +62,7 @@ To do these, you must first add an `#import "ECSlidingViewController.h"` to the 
 
  Below is the `viewDidLoad:` and `viewWillAppear:` method for `FirstTopViewController`.
 
-- (void)viewDidLoad
+`- (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -86,8 +86,7 @@ To do these, you must first add an `#import "ECSlidingViewController.h"` to the 
   [super viewWillAppear:animated];
   // Do additonal stuff here
   [self.view addGestureRecognizer:self.slidingViewController.panGesture];
-}
-
+}`
 
 The above code will conditionally set the `underLeftViewController` if it is not already there. Then, it adds the gesture recognizer to the top view. The last line of code specifies the top view's anchor position on the right side.
 
