@@ -62,31 +62,32 @@ To do these, you must first add an `#import "ECSlidingViewController.h"` to the 
 
  Below is the `viewDidLoad:` and `viewWillAppear:` method for `FirstTopViewController`.
 
-`- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
-    ///Set up for the slide view
-    self.view.layer.shadowOpacity = 0.75f;
-    self.view.layer.shadowRadius = 10.0f;
-    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.view.bounds] CGPath];
-    
-    if (![self.slidingViewController.underLeftViewController isKindOfClass:[MenuViewController class]]) {
-        self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
-    }
-    if (![self.slidingViewController.underRightViewController isKindOfClass:[UnderRightViewController class]]) {
-        self.slidingViewController.underRightViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"UnderRight"];
-    }
-}
 
-- (void)viewWillAppear:(BOOL)animated
-{
-  [super viewWillAppear:animated];
-  // Do additonal stuff here
-  [self.view addGestureRecognizer:self.slidingViewController.panGesture];
-}`
+	- (void)viewDidLoad
+	{
+    		[super viewDidLoad];
+    		// Do any additional setup after loading the view, typically from a nib
+    
+    		///Set up for the slide view
+    		self.view.layer.shadowOpacity = 0.75f;
+    		self.view.layer.shadowRadius = 10.0f;
+    		self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    		self.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.view.bounds] CGPath];
+    
+    		if (![self.slidingViewController.underLeftViewController isKindOfClass:[MenuViewController class]]) {
+     			self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
+    		}
+    		if (![self.slidingViewController.underRightViewController isKindOfClass:[UnderRightViewController class]]) {
+    			self.slidingViewController.underRightViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"UnderRight"];
+    		}
+	}
+
+	- (void)viewWillAppear:(BOOL)animated 
+	{
+		[super viewWillAppear:animated];
+  		// Do additonal stuff here
+  		[self.view addGestureRecognizer:self.slidingViewController.panGesture];
+	}
 
 The above code will conditionally set the `underLeftViewController` if it is not already there. Then, it adds the gesture recognizer to the top view. The last line of code specifies the top view's anchor position on the right side.
 
