@@ -1,3 +1,5 @@
+# Update
+So I've updated the whole project because there were some troubles when using viewDidLoad and this slidingviewcontroller. vControllers where never reused but instantiated every time you switched. To solve this, an list is added to ECSld. and a query method. This way you can query if your vCtrler already exist. If not than instantiate it. Resulting in far less memory usage over longer periods of app-usage!
 # ECSlidingViewController
 
 `ECSlidingViewController` is a view controller container for iOS that presents its child view controllers in two layers. It provides functionality for sliding the top view to reveal the views underneath it. This functionality is inspired by the Path 2.0 and Facebook iPhone apps.
@@ -58,19 +60,34 @@ The top view controller is responsible for two things:
 
 To do these, you must first add an `#import "ECSlidingViewController.h"` to the `FirstTopViewController` header. Then in the implementation you'll have access to a category on `UIViewController` called `slidingViewController`.  This the top-level instance of the `ECSlidingViewController` container.  With this instance, you can set the view controllers underneath the top view and add panning.
 
-Below is the `viewWillAppear:` method for `FirstTopViewController`.
+ Below is the `viewDidLoad:` and `viewWillAppear:` method for `FirstTopViewController`.
 
-	- (void)viewWillAppear:(BOOL)animated
-	{
-	  [super viewWillAppear:animated];
-	  
-	  if (![self.slidingViewController.underLeftViewController isKindOfClass:[MenuViewController class]]) {
-	    self.slidingViewController.underLeftViewController  = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
-	  }
-	  
-	  [self.view addGestureRecognizer:self.slidingViewController.panGesture];
-	  [self.slidingViewController setAnchorRightRevealAmount:280.0f];
-	}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+    
+    ///Set up for the slide view
+    self.view.layer.shadowOpacity = 0.75f;
+    self.view.layer.shadowRadius = 10.0f;
+    self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.view.bounds] CGPath];
+    
+    if (![self.slidingViewController.underLeftViewController isKindOfClass:[MenuViewController class]]) {
+        self.slidingViewController.underLeftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"Menu"];
+    }
+    if (![self.slidingViewController.underRightViewController isKindOfClass:[UnderRightViewController class]]) {
+        self.slidingViewController.underRightViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"UnderRight"];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+  [super viewWillAppear:animated];
+  // Do additonal stuff here
+  [self.view addGestureRecognizer:self.slidingViewController.panGesture];
+}
+
 
 The above code will conditionally set the `underLeftViewController` if it is not already there. Then, it adds the gesture recognizer to the top view. The last line of code specifies the top view's anchor position on the right side.
 
