@@ -27,6 +27,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   
+  
   NSString *identifier = @"FirstTop"; //This is the ident for the first top viewcontroller
     UIViewController *initViewController = [ECSlidingViewController queryViewController:identifier]; //Check if viewcontroller does exist
     if (!initViewController) {
