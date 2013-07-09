@@ -8,7 +8,7 @@
 //  Edited by wkberg on 6/8/12
 
 #import "MenuViewController.h"
-#import "ECSlidingViewController"
+#import "ECSlidingViewController.h"
 
 @interface MenuViewController()
 @property (nonatomic, strong) NSArray *menuItems;

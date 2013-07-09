@@ -36,12 +36,17 @@
   }
   
   
-  NSString *identifier = @"FirstTop"; //This is the ident for the first top viewcontroller
+    NSString *identifier = @"FirstTop"; //This is the ident for the first top viewcontroller
+    
     UIViewController *initViewController = [ECSlidingViewController queryViewController:identifier]; //Check if viewcontroller does exist
+    
     if (!initViewController) {
+        
         initViewController = [storyboard instantiateViewControllerWithIdentifier:identifier]; //if not: instantiate it
+        
         [ECSlidingViewController addViewController:identifier viewController:initViewController]; //add instantiated vC to the list
     }
+    
     self.topViewController = initViewController;
 }
 
