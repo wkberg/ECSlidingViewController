@@ -5,6 +5,7 @@
 //  Created by Michael Enriquez on 1/23/12.
 //  Copyright (c) 2012 EdgeCase. All rights reserved.
 //
+//  Edited by wkberg on 6/8/12
 
 #import "ECSlidingViewController.h"
 
@@ -16,6 +17,7 @@ NSString *const ECSlidingViewTopDidAnchorLeft        = @"ECSlidingViewTopDidAnch
 NSString *const ECSlidingViewTopDidAnchorRight       = @"ECSlidingViewTopDidAnchorRight";
 NSString *const ECSlidingViewTopWillReset            = @"ECSlidingViewTopWillReset";
 NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidReset";
+NSMutableDictionary *arrayOfViewControllers;	///Added
 
 @interface ECSlidingViewController()
 
@@ -28,6 +30,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 @property (nonatomic, assign) BOOL underLeftShowing;
 @property (nonatomic, assign) BOOL underRightShowing;
 @property (nonatomic, assign) BOOL topViewIsOffScreen;
+@property (nonatomic, retain)NSMutableDictionary *arrayOfViewControllers; //Added
 
 - (NSUInteger)autoResizeToFillScreen;
 - (UIView *)topView;
@@ -597,6 +600,38 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
   } else {
     [NSException raise:@"Invalid Width Layout" format:@"underRightWidthLayout must be a valid ECViewWidthLayout"];
   }
+}
+
+///Added this:
+
++ (UIViewController *) queryViewController:(NSString *)viewControllerIdentifier {
+    if (!arrayOfViewControllers)
+        return nil;
+    
+    if ([arrayOfViewControllers count]) {
+        UIViewController *existingViewController =(UIViewController *)[arrayOfViewControllers objectForKey:viewControllerIdentifier];
+        if (existingViewController) {
+            
+            return existingViewController;
+        }
+    }
+    return nil;
+}
+
++ (void) addViewController:(NSString *)viewControllerIdentifier viewController:(UIViewController *)avc {
+    if (!arrayOfViewControllers){
+        arrayOfViewControllers = [[NSMutableDictionary alloc]initWithCapacity:0];
+        
+    }
+    
+    if ([arrayOfViewControllers count]) {
+        UIViewController *existingViewController =(UIViewController *)[arrayOfViewControllers objectForKey:viewControllerIdentifier];
+        if (existingViewController) {
+            NSLog(@"%s ViewController exists %@", __func__, viewControllerIdentifier);
+            return;
+        }
+    }
+    [arrayOfViewControllers setObject:avc forKey:viewControllerIdentifier];
 }
 
 @end
