@@ -126,6 +126,7 @@ In `viewDidLoad:`
     		self.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.view.bounds] CGPath];
 
 	}
+
 Or in `viewWillAppear:` Depending on your needs and usage:
 
 	- (void)viewWillAppear:(BOOL)animated
