@@ -112,6 +112,22 @@ Below is an example of the anchorRightRevealAmount set:
 
 `ECSlidingViewController` handles the shadowOffset, shadowPath, and their rotations for you automatically.  The following code in your top view controller will add a shadow:
 
+In `viewDidLoad:`
+
+- (void)viewDidLoad
+	{
+    		[super viewDidLoad];
+    		// Do any additional setup after loading the view, typically from a nib
+    
+    		///Set up for the slide view
+    		self.view.layer.shadowOpacity = 0.75f;
+    		self.view.layer.shadowRadius = 10.0f;
+    		self.view.layer.shadowColor = [UIColor blackColor].CGColor;
+    		self.view.layer.shadowPath = [[UIBezierPath bezierPathWithRect:self.view.bounds] CGPath];
+
+	}
+Or in `viewWillAppear:` Depending on your needs and usage:
+
     - (void)viewWillAppear:(BOOL)animated
     {
       [super viewWillAppear:animated];
