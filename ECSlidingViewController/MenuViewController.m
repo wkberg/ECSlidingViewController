@@ -5,8 +5,10 @@
 //  Created by Michael Enriquez on 1/23/12.
 //  Copyright (c) 2012 EdgeCase. All rights reserved.
 //
+//  Edited by wkberg on 6/8/12
 
 #import "MenuViewController.h"
+#import "ECSlidingViewController"
 
 @interface MenuViewController()
 @property (nonatomic, strong) NSArray *menuItems;
@@ -17,7 +19,7 @@
 
 - (void)awakeFromNib
 {
-  self.menuItems = [NSArray arrayWithObjects:@"First", @"Second", @"Third", @"Navigation", nil];
+  self.menuItems = [NSArray arrayWithObjects:@"FirstTop", @"SecondTop", @"ThirdTop", @"NavigationTop", nil];
 }
 
 - (void)viewDidLoad
@@ -48,9 +50,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-  NSString *identifier = [NSString stringWithFormat:@"%@Top", [self.menuItems objectAtIndex:indexPath.row]];
+  NSString *identifier = [NSString stringWithFormat:@"%@", [self.menuItems objectAtIndex:indexPath.row]];
 
-  UIViewController *newTopViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+//NO LONGER USED:  UIViewController *newTopViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+//Instead use this:
+  UIViewController *newTopViewController = [ECSlidingViewController queryViewController:identifier];
+    
+  if (!newTopViewController) {
+        newTopViewController = [self.storyboard instantiateViewControllerWithIdentifier:identifier];
+        [ECSlidingViewController addViewController:identifier viewController:newTopViewController];
+    }
+
   
   [self.slidingViewController anchorTopViewOffScreenTo:ECRight animations:nil onComplete:^{
     CGRect frame = self.slidingViewController.topViewController.view.frame;
